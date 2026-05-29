@@ -1,7 +1,10 @@
 from flask import Flask, render_template
 
 # Inicializamos la aplicación
-app = Flask(__name__)
+import os
+# Esto le dice a Flask que busque la carpeta 'templates' en la misma carpeta donde está app.py
+template_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+app = Flask(__name__, template_folder=template_dir)
 
 # Creamos la ruta principal de la página
 @app.route('/')
