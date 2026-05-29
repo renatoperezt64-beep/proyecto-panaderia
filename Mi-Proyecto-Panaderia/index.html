@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panadería Lucky | Recién Horneado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     
     <style>
         :root {
@@ -18,16 +19,30 @@
             background-color: var(--crema-suave);
             color: var(--cafe-oscuro);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding-top: 70px; 
-            }
+            padding-top: 100px; /* Ajustado por la marquesina */
+        }
+
+        /* Marquesina requerida */
+        .marquesina-top {
+            background-color: var(--naranja-horneado);
+            color: var(--blanco);
+            padding: 5px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1040;
+        }
 
         /* Barra de navegación */
         .navbar-custom {
             background-color: var(--cafe-oscuro);
+            top: 35px; /* Para que quede debajo de la marquesina */
         }
         .navbar-custom .navbar-brand,
         .navbar-custom .nav-link {
-            color: var(--crema-suave) !important /* PRIORIZAR */;
+            color: var(--crema-suave) !important;
             font-weight: bold;
         }
         .navbar-custom .nav-link:hover {
@@ -42,26 +57,20 @@
             text-align: center;
             border-bottom: 5px solid var(--naranja-horneado);
         }
-        
-        .hero-section h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
 
-        /* Tarjetas de Productos */
-        .producto-card {
+        /* Tarjetas (Productos, Proveedores, Clientes) */
+        .card-custom {
             border: none;
             border-radius: 15px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             background-color: var(--blanco);
             overflow: hidden;
         }
-        .producto-card:hover {
+        .card-custom:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 20px rgba(62, 39, 35, 0.2);
         }
-        .producto-img {
+        .card-img-custom {
             height: 200px;
             object-fit: cover;
         }
@@ -72,6 +81,8 @@
             border-radius: 20px;
             font-weight: bold;
             font-size: 1.1rem;
+            display: inline-block;
+            margin-top: 10px;
         }
 
         /* Botones */
@@ -94,157 +105,200 @@
             padding: 40px 0 20px 0;
             border-top: 5px solid var(--naranja-horneado);
         }
+        .social-icon {
+            color: var(--naranja-horneado);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        .social-icon:hover {
+            color: var(--blanco);
+        }
     </style>
 </head>
 <body>
+    
+    <div class="marquesina-top">
+        <marquee behavior="scroll" direction="left">
+            Carnet: 0900-24-5330 - Renato Andre Pérez Tirado
+        </marquee>
+    </div>
+
     <audio id="musicaFondo" loop>
-    <source src="{{ url_for('static', filename='musica.mp3') }}" type="audio/mpeg">
-    Tu navegador no soporta el elemento de audio.
-</audio>
+        <source src="{{ url_for('static', filename='musica.mp3') }}" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    
     <nav class="navbar navbar-expand-lg navbar-custom fixed-top shadow">
         <div class="container">
             <a class="navbar-brand" href="#">🥐 Panadería Lucky</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-                </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#quienes-somos">Quiénes Somos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#mision-vision">Misión y Visión</a></li>
                     <li class="nav-item"><a class="nav-link" href="#productos">Productos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proveedores">Proveedores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#clientes">Clientes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contáctenos</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    </nav> <div class="container text-center my-3">
-    <p class="mb-1 fw-bold" style="color: var(--naranja-horneado, #d35400);">🎵 ¡Acompaña tu visita con nuestra música!</p>
-</div>
+    
+    <div class="container text-center my-3">
+        <p class="mb-1 fw-bold" style="color: var(--naranja-horneado);">🎵 ¡Acompaña tu visita con nuestra música!</p>
+    </div>
 
     <header id="inicio">
         <div id="miCarrusel" class="carousel slide" data-bs-ride="carousel">
-    
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <a href="#productos" style="text-decoration: none; color: inherit;">
-                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1000&auto=format&fit=crop" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Ir a productos">
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50">
-                    <h5>¡Lunes de Locura! 🥐</h5>
-                    <p>Haz clic para ver nuestras ofertas</p>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1000&auto=format&fit=crop" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Panadería">
+                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50">
+                        <h5>¡Lunes de Locura! 🥐</h5>
+                        <p>Los mejores panes recién horneados en la ciudad.</p>
+                    </div>
                 </div>
-            </a>
+            </div>
         </div>
-
-        <div class="carousel-item">
-            <a href="#contacto" style="text-decoration: none; color: inherit;">
-                <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=1000&auto=format&fit=crop" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Ir a contacto">
-                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50">
-                    <h5>¿Pedidos especiales?</h5>
-                    <p>Haz clic para contactarnos</p>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#miCarrusel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#miCarrusel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
-</div>
     </header>
 
-    <section class="container mt-5 pt-5" id="nosotros">
+    <section class="container mt-5 pt-5" id="quienes-somos">
         <div class="row align-items-center">
-            <div class="col-md-6">
-                <h2 class="fw-bold" style="color: var(--naranja-horneado);">Nuestra Historia</h2>
+            <div class="col-md-7">
+                <h2 class="fw-bold" style="color: var(--naranja-horneado);">Quiénes Somos</h2>
                 <p class="fs-5 mt-3">En <strong>Panadería Lucky</strong> creemos que un buen día comienza con un buen pan. Somos una panadería tradicional que mezcla recetas clásicas con ingredientes de primera calidad.</p>
                 <p class="fs-5">Nuestro horno no descansa, asegurando que cada pan francés, cada concha y cada pastel llegue a tus manos suave, esponjoso y listo para disfrutar.</p>
             </div>
+            <div class="col-md-5 text-center">
+                <img src="/static/mi_foto.jpeg" alt="Foto del estudiante" class="img-fluid rounded-circle shadow-lg border border-warning" style="width: 250px; height: 250px; object-fit: cover;">
+                <h5 class="mt-3 fw-bold">Renato Andre Pérez Tirado</h5>
+                <p class="text-muted">Fundador y Desarrollador Web</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mt-5 pt-5" id="mision-vision">
+        <h2 class="text-center fw-bold mb-5" style="color: var(--naranja-horneado);">Nuestra Esencia</h2>
+        <div class="row g-4">
             <div class="col-md-6">
-                <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=800&h=600&fit=crop" alt="Panadero horneando" class="img-fluid rounded shadow-lg">
+                <div class="p-4 rounded shadow-sm" style="background-color: var(--blanco);">
+                    <h3 class="fw-bold mb-3"><i class="bi bi-bullseye text-warning"></i> Misión</h3>
+                    <p class="fs-5">Deleitar el paladar de las familias guatemaltecas ofreciendo productos de panadería y repostería frescos, elaborados diariamente con los más altos estándares de higiene, calidad y con el sabor de la tradición.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-4 rounded shadow-sm" style="background-color: var(--blanco);">
+                    <h3 class="fw-bold mb-3"><i class="bi bi-eye text-warning"></i> Visión</h3>
+                    <p class="fs-5">Ser la cadena de panaderías líder a nivel nacional, reconocida por nuestra innovación constante, el compromiso con la nutrición de nuestros clientes y el fomento del desarrollo de nuestros colaboradores.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="container mt-5 pt-5" id="productos">
-        <h2 class="text-center fw-bold mb-5" style="color: var(--naranja-horneado);">Nuestro Menú Especial</h2>
-        
-            <div class="row g-4">
-                <div class="col-md-4">
-                <div class="card producto-card shadow-sm h-100">
-                    <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&h=400&fit=crop" class="card-img-top producto-img" alt="Champurradas">
+        <h2 class="text-center fw-bold mb-5" style="color: var(--naranja-horneado);">Nuestros Productos</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card card-custom h-100 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&h=400&fit=crop" class="card-img-top card-img-custom" alt="Champurradas">
                     <div class="card-body text-center">
                         <h4 class="card-title fw-bold">Champurradas</h4>
                         <p class="card-text text-muted">Tostadas, dulces y perfectas para acompañar tu taza de café por las tardes.</p>
-                        <span class="precio-badge">Favorito</span>
+                        <div class="precio-badge">Q. 15.00 (Bolsa)</div>
                     </div>
                 </div>
             </div>
-                
-
             <div class="col-md-4">
-                <div class="card producto-card shadow-sm h-100">
-                    <img src="{{ url_for('static', filename='baget.jpg') }}" class="card-img-top producto-img" alt="Baguette">
-                    <div class="card-body text-center">
-                        <h4 class="card-title fw-bold">Baguette</h4>
-                        <p class="card-text text-muted">Tostadas, dulces y perfectas para acompañar tu taza de café por las tardes.</p>
-                        <span class="precio-badge">Favorito</span>
-                    </div>
-                </div>
-            </div>
-                
-            <div class="col-md-4">
-                <div class="card producto-card shadow-sm h-100">
-                    <img src="/static/cachitos.png" class="card-img-top producto-img" alt="Cachitos de Mantequilla">
-                    <div class="card-body text-center">
-                        <h4 class="card-title fw-bold">Cachitos de Mantequilla</h4>
-                        <p class="card-text text-muted">Masa hojaldrada que se deshace en la boca, horneados con pura mantequilla.</p>
-                        <span class="precio-badge">Especial</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card producto-card shadow-sm h-100">
-                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=400&fit=crop" class="card-img-top producto-img" alt="Pastel de Vitrina">
+                <div class="card card-custom h-100 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=400&fit=crop" class="card-img-top card-img-custom" alt="Pastel Tres Leches">
                     <div class="card-body text-center">
                         <h4 class="card-title fw-bold">Pastel Tres Leches</h4>
                         <p class="card-text text-muted">Bizcocho esponjoso bañado en nuestra receta secreta de tres leches.</p>
-                        <span class="precio-badge">Postres</span>
+                        <div class="precio-badge">Q. 120.00 (Entero)</div>
                     </div>
                 </div>
             </div>
-
             <div class="col-md-4">
-                <div class="card producto-card shadow-sm h-100">
-                    <img src="/static/empanadas.jpg" class="card-img-top producto-img" alt="Empanadas de Manjar">
-                    <div class="card-body text-center">
-                        <h4 class="card-title fw-bold">Empanadas de Manjar</h4>
-                        <p class="card-text text-muted">Rellenas de un suave manjar de leche y espolvoreadas con azúcar fina.</p>
-                        <span class="precio-badge">Dulce</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card producto-card shadow-sm h-100">
-                    <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=600&h=400&fit=crop" class="card-img-top producto-img" alt="Conchas Tradicionales">
+                <div class="card card-custom h-100 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=600&h=400&fit=crop" class="card-img-top card-img-custom" alt="Conchas Tradicionales">
                     <div class="card-body text-center">
                         <h4 class="card-title fw-bold">Conchas Tradicionales</h4>
-                        <p class="card-text text-muted">Masa dulce y esponjosa cubierta con la tradicional costra de azúcar sabor vainilla o chocolate.</p>
-                        <span class="precio-badge">Tradición</span>
+                        <p class="card-text text-muted">Masa dulce y esponjosa cubierta con costra de azúcar sabor vainilla.</p>
+                        <div class="precio-badge">Q. 5.00 (Unidad)</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="footer-custom mt-5" id="contacto">
+    <section class="container mt-5 pt-5" id="proveedores">
+        <h2 class="text-center fw-bold mb-5" style="color: var(--naranja-horneado);">Nuestros Proveedores</h2>
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1506459225024-1428097a7e18?w=200&h=200&fit=crop" class="rounded-circle mb-3 shadow" style="width: 150px; height: 150px; object-fit: cover;" alt="Proveedor Harina">
+                <h5 class="fw-bold">Molinos de Trigo S.A.</h5>
+                <p>Provedor exclusivo de harina.</p>
+            </div>
+            <div class="col-md-4">
+                <img src="lacteos.jpeg" class="rounded-circle mb-3 shadow" style="width: 150px; height: 150px; object-fit: cover;" alt="Proveedor Lácteos">
+                <h5 class="fw-bold">Lácteos La Pradera</h5>
+                <p>Proveedores de mantequilla y leche fresca.</p>
+            </div>
+            <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1587486913049-53fc88980cfc?w=200&h=200&fit=crop" class="rounded-circle mb-3 shadow" style="width: 150px; height: 150px; object-fit: cover;" alt="Proveedor Huevos">
+                <h5 class="fw-bold">Granjas El Sol</h5>
+                <p>Huevos frescos de granja locales.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mt-5 pt-5" id="clientes">
+        <h2 class="text-center fw-bold mb-5" style="color: var(--naranja-horneado);">Nuestros Clientes Satisfechos</h2>
+        <ul class="list-group list-group-flush shadow-sm rounded">
+            <li class="list-group-item d-flex align-items-center p-3">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=100&h=100&fit=crop" alt="Cliente 1" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                <div class="flex-grow-1">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-cup-hot-fill text-warning me-2"></i>Cafetería El Grano de Oro</h5>
+                    <small class="text-muted">Cliente corporativo</small>
+                </div>
+            </li>
+            <li class="list-group-item d-flex align-items-center p-3">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100&h=100&fit=crop" alt="Cliente 2" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                <div class="flex-grow-1">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-shop text-warning me-2"></i>Restaurante La Estancia</h5>
+                    <small class="text-muted">Cliente corporativo</small>
+                </div>
+            </li>
+            <li class="list-group-item d-flex align-items-center p-3">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=100&h=100&fit=crop" alt="Cliente 3" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                <div class="flex-grow-1">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-building text-warning me-2"></i>Hotel Las Palmeras</h5>
+                    <small class="text-muted">Cliente para eventos y desayunos</small>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="container mt-5 pt-5 text-center">
+        <h2 class="fw-bold mb-4" style="color: var(--naranja-horneado);">Conoce nuestro proceso</h2>
+        <div class="ratio ratio-16x9 mx-auto shadow" style="max-width: 800px; border-radius: 15px; overflow: hidden;">
+            <video controls>
+                <source src="/static/video.mp4" type="video/mp4">
+                Tu navegador no soporta videos HTML5.
+            </video>
+        </div>
+        <p class="text-muted mt-2">Disfruta de este video de 30-45 seg sobre nuestra preparación diaria.</p>
+    </section>
+
+    <footer class="footer-custom mt-5 pt-5" id="contacto">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 mb-4">
+                <div class="col-md-4 mb-4">
                     <h3 class="fw-bold mb-4" style="color: var(--naranja-horneado);">Haz tu pedido</h3>
                     <form>
                         <div class="mb-3">
@@ -254,55 +308,59 @@
                             <input type="email" class="form-control" placeholder="Tu Correo Electrónico">
                         </div>
                         <div class="mb-3">
-                            <textarea class="form-control" rows="4" placeholder="¿Qué panes deseas pedir o qué duda tienes?"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="¿Qué panes deseas pedir?"></textarea>
                         </div>
                         <button type="button" class="btn btn-custom w-100">Enviar Mensaje</button>
                     </form>
                 </div>
-                <div class="col-md-5 offset-md-1">
+
+                <div class="col-md-4 mb-4 text-center">
                     <h3 class="fw-bold mb-4" style="color: var(--naranja-horneado);">Encuéntranos</h3>
-                    <p class="fs-5">📍 <strong>Dirección:</strong> Ciudad de Guatemala</p>
-                    <p class="fs-5">📞 <strong>Teléfono:</strong> +502 2222-3333</p>
-                    <p class="fs-5">✉️ <strong>Correo:</strong> pedidos@panaderialucky.com</p>
-                    <h5 class="mt-4 fw-bold">Horario de Atención:</h5>
-                    <p>Lunes a Domingo: 6:00 AM - 8:00 PM</p>
+                    <p class="fs-5 mb-1">📍 <strong>Dirección:</strong> Ciudad de Guatemala</p>
+                    <p class="fs-5 mb-1">📞 <strong>Teléfono:</strong> +502 2222-3333</p>
+                    <p class="fs-5 mb-3">✉️ <strong>Correo:</strong> pedidos@lucky.com</p>
+                    
+                    <h5 class="fw-bold mt-4 mb-3">Síguenos en nuestras redes:</h5>
+                    <div>
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <h3 class="fw-bold mb-4" style="color: var(--naranja-horneado);">Ubicación</h3>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123536.6528766158!2d-90.61250267711414!3d14.626359521360172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8589a180655c3345%3A0x4a72c7815b867b25!2sGuatemala!5e0!3m2!1ses!2sgt!4v1714100000000!5m2!1ses!2sgt" width="100%" height="200" style="border:0; border-radius:10px;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
+            
             <hr class="mt-4" style="border-color: rgba(255,248,225,0.2);">
+            
             <div class="text-center mt-3">
-    <p class="mb-0">© 2026 Panadería Lucky. Todos los derechos reservados.</p>
-    
-    <div class="mt-3 d-flex flex-column align-items-center">
-        <img src="/static/mi_foto.jpeg" alt="Foto de perfil" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--naranja-horneado); margin-bottom: 8px;">
-        
-        <span class="d-block" style="color: var(--crema-suave); font-size: 0.9rem; opacity: 0.8;">
-            Proyecto desarrollado por Renato Andre Pérez Tirado<br>
-            Ingeniería Industrial | Universidad Mariano Gálvez
-        </span>
-    </div>
-</div>
+                <h5 class="fst-italic mb-3 text-warning">"Conoceréis la verdad y la verdad os hará libres"</h5>
+                
+                <span class="d-block" style="color: var(--crema-suave); font-size: 0.9rem; opacity: 0.8;">
+                    Proyecto desarrollado por Renato Andre Pérez Tirado<br>
+                    Ingeniería Industrial | Universidad Mariano Gálvez
+                </span>
+                <p class="mb-0 mt-3">© 2026 Panadería Lucky. Todos los derechos reservados.</p>
+            </div>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    // Buscamos el reproductor de audio
-    var musica = document.getElementById("musicaFondo");
-
-    // Función para reproducir la música
-    function iniciarMusica() {
-        musica.volume = 0.2;
-        
-        musica.play().catch(function(error) {
-            console.log("El navegador bloqueó el audio automático:", error);
-        });
-        // Una vez que arranca, quitamos este evento para que no intente reproducirse en cada clic
-        document.body.removeEventListener('click', iniciarMusica);
-        document.body.removeEventListener('scroll', iniciarMusica);
-    }
-
-    // Le decimos a la página que esté atenta al primer clic o scroll del usuario
-    document.body.addEventListener('click', iniciarMusica);
-    document.body.addEventListener('scroll', iniciarMusica);
-</script>
+        var musica = document.getElementById("musicaFondo");
+        function iniciarMusica() {
+            musica.volume = 0.2;
+            musica.play().catch(function(error) {
+                console.log("El navegador bloqueó el audio:", error);
+            });
+            document.body.removeEventListener('click', iniciarMusica);
+            document.body.removeEventListener('scroll', iniciarMusica);
+        }
+        document.body.addEventListener('click', iniciarMusica);
+        document.body.addEventListener('scroll', iniciarMusica);
+    </script>
 </body>
 </html>
