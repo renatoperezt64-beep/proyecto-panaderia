@@ -245,7 +245,7 @@
                 <p>Provedor exclusivo de harina.</p>
             </div>
             <div class="col-md-4">
-                <img src="{{ url_for('static', filename='mi_foto.jpeg') }}" alt="Foto del estudiante" class="img-fluid rounded-circle shadow-lg border border-warning" style="width: 250px; height: 250px; object-fit: cover;">
+                <img src="{{ url_for('static', filename='lacte.jpg') }}" alt="Foto del estudiante" class="img-fluid rounded-circle shadow-lg border border-warning" style="width: 250px; height: 250px; object-fit: cover;">
                 <h5 class="fw-bold">Lácteos La Pradera</h5>
                 <p>Proveedores de mantequilla y leche fresca.</p>
             </div>
@@ -283,16 +283,21 @@
             </li>
         </ul>
     </section>
-
     <section class="container mt-5 pt-5 text-center">
         <h2 class="fw-bold mb-4" style="color: var(--naranja-horneado);">Conoce nuestro proceso</h2>
+        
         <div class="ratio ratio-16x9 mx-auto shadow" style="max-width: 800px; border-radius: 15px; overflow: hidden;">
-            <video controls>
-                <source src="https://youtu.be/VywJcOyMOWo?si=LsoVZxPqbZGAoGeU" type="video/mp4">
-                Tu navegador no soporta videos HTML5.
-            </video>
+            
+            <iframe 
+                src="https://youtu.be/VywJcOyMOWo?si=LsoVZxPqbZGAoGeU" 
+                title="Video Promocional Panadería" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+
         </div>
-        <p class="text-muted mt-2">Disfruta de este video de 30-45 seg sobre nuestra preparación diaria.</p>
+        <p class="text-muted mt-2">Disfruta de este video sobre nuestra preparación diaria.</p>
     </section>
 
     <footer class="footer-custom mt-5 pt-5" id="contacto">
