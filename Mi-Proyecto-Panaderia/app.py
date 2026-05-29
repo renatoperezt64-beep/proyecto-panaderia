@@ -1,17 +1,18 @@
 from flask import Flask, render_template
-
-# Inicializamos la aplicación
 import os
-# Esto le dice a Flask que busque la carpeta 'templates' en la misma carpeta donde está app.py
-template_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+
+# Configuramos la ruta absoluta hacia la carpeta 'templates'
+# Esto le dice a Flask: "Busca 'templates' donde sea que esté este archivo app.py"
+base_dir = os.path.dirname(os.path.abspath(__file__))
+template_dir = os.path.join(base_dir, 'templates')
+
 app = Flask(__name__, template_folder=template_dir)
 
-# Creamos la ruta principal de la página
 @app.route('/')
 def inicio():
-    # Esto le dice a Python que muestre tu esquema visual de la panadería
     return render_template('index.html')
 
 if __name__ == '__main__':
-    # Ejecutamos el servidor en modo de prueba
-    app.run(debug=True)
+    # Render asigna el puerto automáticamente mediante una variable de entorno
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
