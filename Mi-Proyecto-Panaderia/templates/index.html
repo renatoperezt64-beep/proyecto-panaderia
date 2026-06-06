@@ -16,11 +16,10 @@
     
     <style>
         :root {
-            /* NUEVA PALETA DE COLORES TIPO "GOURMET" */
-            --color-primario: #1e2a38; /* Azul oscuro elegante */
-            --color-acento: #d35400; /* Naranja/Óxido llamativo */
+            --color-primario: #1e2a38; 
+            --color-acento: #d35400;
             --color-acento-hover: #e67e22;
-            --color-fondo: #f7f9fa; /* Blanco grisáceo muy limpio */
+            --color-fondo: #f7f9fa; 
             --blanco: #ffffff;
             --texto-suave: #596b7d;
         }
@@ -88,7 +87,7 @@
             color: var(--blanco) !important;
         }
 
-        /* Sección principal (Hero) - Más inmersiva */
+        /* Sección principal (Hero) */
         .hero-section {
             background: linear-gradient(rgba(30, 42, 56, 0.8), rgba(30, 42, 56, 0.8)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1200&h=600&fit=crop') center/cover fixed;
             color: var(--blanco);
@@ -97,7 +96,7 @@
             border-bottom: 5px solid var(--color-acento);
         }
 
-        /* Tarjetas estilo minimalista */
+        /* Tarjetas */
         .card-custom {
             border: none;
             border-radius: 20px;
@@ -165,7 +164,7 @@
             border-radius: 5px;
         }
 
-        /* Footer elegante */
+        /* Footer */
         .footer-custom {
             background-color: var(--color-primario);
             color: var(--blanco);
@@ -304,7 +303,7 @@
         <div class="row g-4 mt-2">
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="card card-custom h-100">
-                    <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&h=400&fit=crop" class="card-img-top card-img-custom" alt="Champurradas">
+                    <img src="{{ url_for('static', filename='champurrada.jpg') }}" class="card-img-top card-img-custom" alt="Champurradas">
                     <div class="card-body text-center p-4">
                         <h4 class="card-title fw-bold">Champurradas</h4>
                         <p class="card-text text-muted small">Tostadas, dulces y perfectas para acompañar tu taza de café por las tardes.</p>
@@ -480,7 +479,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
-        // Inicializar animaciones de scroll
         AOS.init({
             duration: 800, // Duración de la animación (en milisegundos)
             once: true, // La animación solo ocurre una vez al bajar
